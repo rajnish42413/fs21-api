@@ -35,7 +35,7 @@
         "migrate": "knex migrate:latest",
         "migrate:make": "knex migrate:make",
         "seed": "node seeder.js",
-        "start": "nodemon src/index.js"
+        "start": "nodemon server/index.js"
     },
     "devDependencies": {
         "@types/bcrypt": "^3.0.0",
