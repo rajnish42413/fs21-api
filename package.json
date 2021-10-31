@@ -1,4 +1,5 @@
 {
+    "main": "server/index.js",
     "dependencies": {
         "@googlemaps/google-maps-services-js": "^3.2.5",
         "antd": "^3.20.5",
