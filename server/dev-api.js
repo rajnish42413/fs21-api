@@ -1,7 +1,7 @@
 require("dotenv").config({
     silent: true
 });
-
+const ngrok = require('ngrok');
 global.Promise = require("bluebird");
 
 const express = require("express"),

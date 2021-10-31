@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable(tablename, t => {
         t.increments('id').index();
         t.string('name');
+        t.text('content').nullable();
         t.string('slug', 150).unique();
         t.integer('country_id').defaultTo(0);
         t.tinyint('status').default(1);

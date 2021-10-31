@@ -5,7 +5,9 @@ export default async (req: Request) => {
     const user = await User.query().insert({
         name: req.body.name,
         email: req.body.email,
-        password: await bcrypt.hash(req.body.password, 10)
+        password: await bcrypt.hash(req.body.password, 10),
+        phone: req.body.phone,
+        country_code: req.body.country_code
     });
     return user;
 };

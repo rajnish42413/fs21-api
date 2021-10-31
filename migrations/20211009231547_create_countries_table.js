@@ -2,11 +2,19 @@ const tablename = 'countries';
 exports.up = function(knex, Promise) {
     return knex.schema.createTable(tablename, t => {
         t.increments('id').index();
-        t.string('currency', 50);
         t.string('name');
-        t.string('currency_symbol',100);
-        t.string('code',20);
-        t.string('language',10).nullable();
+        t.string('iso2').nullable();
+        t.string('iso3').nullable();
+        t.string('phonecode').nullable();
+        t.string('capital').nullable();
+        t.string('currency').nullable();
+        t.string('native').nullable();
+        t.string('region').nullable();
+        t.string('subregion').nullable();
+        t.string('emoji').nullable();
+        t.string('emojiU').nullable();
+        t.string('wikiDataId').nullable();
+        t.tinyint('status').defaultTo(1);
         t.timestamp('created_at').defaultTo(knex.fn.now());
         t.timestamp('updated_at').defaultTo(knex.fn.now());
     });

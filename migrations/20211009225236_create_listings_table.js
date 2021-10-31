@@ -16,7 +16,7 @@ exports.up = function(knex, Promise) {
     table.integer('host_id').defaultTo(0);
     table.integer('brand_id').defaultTo(0);
     table.tinyint('status').defaultTo(0);
-    table.float('listing_scores').defaultTo(0);
+    table.float('scores').defaultTo(0);
     table.boolean('confirm_required').defaultTo(false);
     table.timestamp('created_at').defaultTo(knex.fn.now())
     table.timestamp('updated_at').defaultTo(knex.fn.now())

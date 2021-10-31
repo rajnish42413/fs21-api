@@ -13,6 +13,7 @@ module.exports = {
         directory: "./migrations/seeds"
     },
     migrations: {
-        tableName: 'migrations'
+        tableName: 'migrations',
+        directory:"./migrations"
     }
 };

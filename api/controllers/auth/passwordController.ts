@@ -16,7 +16,5 @@ export const update = async (req: Request, res: Response) => {
     }
   } else throw new ResponseError("Password is Incorrect", 422);
 };
-
 export const forgot = () => {};
-
 export const reset = () => {};
