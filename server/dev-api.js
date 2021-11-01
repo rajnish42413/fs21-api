@@ -19,5 +19,5 @@ app.use("/api", routes(app));
 const port = process.env.PORT || 5000;
 server.listen(port, "0.0.0.0", err => {
     if (err) throw err;
-    console.log("> Api is ready on http://localhost:" + 3000);
+    console.log("> Api is ready on http://localhost:" + port);
 });

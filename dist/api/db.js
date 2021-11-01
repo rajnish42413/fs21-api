@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const objection_1 = require("objection");
-const Knex = require("knex");
+const { Model } = require('objection');
+const Knex = require('knex');
 const database_1 = require("./configs/database");
 // Initialize knex.
 const knex = Knex({
@@ -14,5 +14,5 @@ const knex = Knex({
     }
 });
 // Give the knex instance to objection.
-objection_1.Model.knex(knex);
+Model.knex(knex);
 //# sourceMappingURL=db.js.map

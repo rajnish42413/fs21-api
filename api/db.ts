@@ -1,5 +1,5 @@
-import { Model } from "objection";
-import * as Knex from "knex";
+const { Model } = require('objection');
+const Knex = require('knex');
 import config from "./configs/database";
 // Initialize knex.
 const knex = Knex({
