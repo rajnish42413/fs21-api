@@ -10,7 +10,8 @@ const knex = Knex({
         host: database_1.default.host,
         user: database_1.default.user,
         password: database_1.default.password,
-        database: database_1.default.database
+        database: database_1.default.database,
+        port: database_1.default.port
     }
 });
 // Give the knex instance to objection.

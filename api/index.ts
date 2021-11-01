@@ -42,7 +42,6 @@ app.get("/listings/:listing", listingController.show);
 app.use(authMiddleware);
 
 
-
 // admin routes
 // app.use(authMiddleware);
 app.get("/admin/countries", AdminLocationController.countries);
