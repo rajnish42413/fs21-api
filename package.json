@@ -1,4 +1,5 @@
 {
+    "main": "server/index.js",
     "dependencies": {
         "@googlemaps/google-maps-services-js": "^3.2.5",
         "antd": "^3.20.5",
@@ -28,13 +29,14 @@
         "socket.io": "^2.4.0"
     },
     "scripts": {
-        "start": "concurrently 'yarn watch:tsc' 'yarn watch:server' 'yarn watch:next'",
+        "dev": "concurrently 'yarn watch:tsc' 'yarn watch:server' 'yarn watch:next'",
         "watch:tsc": "tsc --project api --watch",
         "watch:server": "nodemon --watch dist/api --watch server/dev-api.js server/dev-api.js",
         "watch:next": "next",
         "migrate": "knex migrate:latest",
         "migrate:make": "knex migrate:make",
-        "seed": "node seeder.js"
+        "seed": "node seeder.js",
+        "start": "nodemon server/dev-api.js"
     },
     "devDependencies": {
         "@types/bcrypt": "^3.0.0",
