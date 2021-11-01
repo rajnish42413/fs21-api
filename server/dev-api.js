@@ -12,7 +12,7 @@ const express = require("express"),
 const routes = require("../dist/api").default;
 app.use("/api", routes(app));
 
-server.listen(3001, "0.0.0.0", err => {
+server.listen(3000, "0.0.0.0", err => {
     if (err) throw err;
-    console.log("> Api is ready on http://localhost:" + 3001);
+    console.log("> Api is ready on http://localhost:" + 3000);
 });
