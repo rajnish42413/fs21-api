@@ -9,8 +9,12 @@ const express = require("express"),
     server = require("http").Server(app),
     io = require("socket.io")(server);
 
-const routes = require("../dist/api").default;
-app.use("/api", routes(app));
+// const routes = require("../dist/api").default;
+
+app.get("/",(req, res) => {
+    res.send("Hello World!");
+})
+// app.use("/api", routes(app));
 
 
 const port = process.env.PORT || 5000;
