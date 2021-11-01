@@ -1,0 +1,52 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
+dotenv.config();
+require("./extensions/express-response");
+const app = express_1.Router();
+app.use(cors());
+const auth_1 = require("./middlewares/auth");
+const loginController_1 = require("./controllers/auth/loginController");
+const registerController_1 = require("./controllers/auth/registerController");
+const locationController = require("./controllers/locationController");
+const listingController = require("./controllers/listingController");
+const typeController = require("./controllers/typeControllers");
+const AdminLocationController = require("./controllers/admin/locationController");
+const AdminTypeController = require("./controllers/admin/typeControllers");
+const AdminListingController = require("./controllers/admin/listingController");
+const AdminPricingController = require("./controllers/admin/pricingsController");
+//import delete_item from "./controllers/removeController";
+require("./db");
+app.use(bodyParser.json());
+app.post("/login", loginController_1.default);
+app.post("/register", registerController_1.default);
+app.get("/countries", locationController.countries);
+app.get("/countries/:country/cities", locationController.cities);
+app.get("/cities", locationController.cities);
+app.get("/types", typeController.index);
+app.get("/cities/:city/areas", locationController.areas);
+app.get("/listings", listingController.index);
+app.get("/listings/:listing", listingController.show);
+// user routes
+app.use(auth_1.default);
+// admin routes
+// app.use(authMiddleware);
+app.get("/admin/countries", AdminLocationController.countries);
+app.get("/admin/countries/:country/cities", AdminLocationController.cities);
+app.get("/admin/cities", AdminLocationController.cities);
+app.put("/admin/cities/:city", AdminLocationController.cityUpdate);
+app.get("/admin/types", AdminTypeController.index);
+app.put("/admin/types/:type", AdminTypeController.update);
+app.get("/admin/cities/:city/areas", AdminLocationController.areas);
+app.get("/admin/listings", AdminListingController.index);
+app.get("/admin/listings/:listing", AdminListingController.show);
+app.put("/admin/listings/:listing/update", AdminListingController.update);
+app.post("/admin/listings/:listing/pricings", AdminPricingController.create);
+app.delete("/admin/listings/:listing/pricings/:pricing", AdminPricingController.remove);
+exports.default = (expApp) => {
+    return app;
+};
+//# sourceMappingURL=index.js.map

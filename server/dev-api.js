@@ -16,7 +16,6 @@ app.get("/",(req, res) => {
 })
 app.use("/api", routes(app));
 
-
 const port = process.env.PORT || 5000;
 server.listen(port, "0.0.0.0", err => {
     if (err) throw err;
