@@ -21,6 +21,7 @@ import * as AdminLocationController from "./controllers/admin/locationController
 import * as AdminTypeController from "./controllers/admin/typeControllers";
 import * as AdminListingController from "./controllers/admin/listingController";
 import * as AdminPricingController from "./controllers/admin/pricingsController";
+import * as AdminWorkspaceController from "./controllers/admin/workspaceController";
 
 //import delete_item from "./controllers/removeController";
 import "./db";
@@ -57,6 +58,9 @@ app.get("/admin/listings/:listing", AdminListingController.show);
 app.put("/admin/listings/:listing/update", AdminListingController.update);
 app.post("/admin/listings/:listing/pricings", AdminPricingController.create);
 app.delete("/admin/listings/:listing/pricings/:pricing", AdminPricingController.remove);
+
+app.get("/admin/workspaces", AdminWorkspaceController.index);
+app.get("/admin/workspaces/:workspace", AdminWorkspaceController.show);
 
 export default (expApp: Express) => {
     return app;

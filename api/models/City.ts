@@ -10,7 +10,7 @@ class City extends Model {
     return {
       image: {
         relation: Model.HasOneRelation,
-        modelClass: `${__dirname}/Media.js`,
+        modelClass: Media,
         join: {
           from: 'cities.id',
           to: 'media.entity_id',

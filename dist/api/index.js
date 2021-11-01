@@ -18,6 +18,7 @@ const AdminLocationController = require("./controllers/admin/locationController"
 const AdminTypeController = require("./controllers/admin/typeControllers");
 const AdminListingController = require("./controllers/admin/listingController");
 const AdminPricingController = require("./controllers/admin/pricingsController");
+const AdminWorkspaceController = require("./controllers/admin/workspaceController");
 //import delete_item from "./controllers/removeController";
 require("./db");
 app.use(bodyParser.json());
@@ -46,6 +47,8 @@ app.get("/admin/listings/:listing", AdminListingController.show);
 app.put("/admin/listings/:listing/update", AdminListingController.update);
 app.post("/admin/listings/:listing/pricings", AdminPricingController.create);
 app.delete("/admin/listings/:listing/pricings/:pricing", AdminPricingController.remove);
+app.get("/admin/workspaces", AdminWorkspaceController.index);
+app.get("/admin/workspaces/:workspace", AdminWorkspaceController.show);
 exports.default = (expApp) => {
     return app;
 };

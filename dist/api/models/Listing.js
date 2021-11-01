@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const objection_1 = require("objection");
 const Pricing_1 = require("../models/Pricing");
 const OpenHour_1 = require("../models/OpenHour");
+const Media_1 = require("./Media");
+const Area_1 = require("./Area");
+const City_1 = require("./City");
 class Listing extends objection_1.Model {
     static get tableName() {
         return 'listings';
@@ -11,7 +14,7 @@ class Listing extends objection_1.Model {
         return {
             image: {
                 relation: objection_1.Model.HasOneRelation,
-                modelClass: `${__dirname}/Media.js`,
+                modelClass: Media_1.default,
                 join: {
                     from: 'listings.id',
                     to: 'media.entity_id',
@@ -19,7 +22,7 @@ class Listing extends objection_1.Model {
             },
             media: {
                 relation: objection_1.Model.HasManyRelation,
-                modelClass: `${__dirname}/Media.js`,
+                modelClass: Media_1.default,
                 join: {
                     from: 'listings.id',
                     to: 'media.entity_id',
@@ -27,7 +30,7 @@ class Listing extends objection_1.Model {
             },
             city: {
                 relation: objection_1.Model.HasOneRelation,
-                modelClass: `${__dirname}/City.js`,
+                modelClass: City_1.default,
                 join: {
                     from: 'cities.id',
                     to: 'listings.city_id',
@@ -35,7 +38,7 @@ class Listing extends objection_1.Model {
             },
             area: {
                 relation: objection_1.Model.HasOneRelation,
-                modelClass: `${__dirname}/Area.js`,
+                modelClass: Area_1.default,
                 join: {
                     from: 'areas.id',
                     to: 'listings.id',
@@ -47,7 +50,7 @@ class Listing extends objection_1.Model {
                 join: {
                     from: 'listing_pricings.entity_id',
                     to: 'listings.id',
-                }
+                },
             },
             openHours: {
                 relation: objection_1.Model.HasManyRelation,
@@ -55,7 +58,7 @@ class Listing extends objection_1.Model {
                 join: {
                     from: 'open_hours.entity_id',
                     to: 'listings.id',
-                }
+                },
             },
         };
     }

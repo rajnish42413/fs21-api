@@ -11,13 +11,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Listing_1 = require("../../models/Listing");
 const Area_1 = require("../../models/Area");
 const City_1 = require("../../models/City");
-const AWS = require("aws-sdk");
-var fs = require('fs');
-AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS,
-    secretAccessKey: process.env.AWS_SECRET,
-    region: process.env.AWS_REGION
-});
 exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
     const { city_id, area_id, capacity, location, q } = req.query;
     let listings = Listing_1.default.query();
@@ -85,21 +78,21 @@ exports.update = (req) => __awaiter(this, void 0, void 0, function* () {
 });
 exports.UploadImage = (req) => __awaiter(this, void 0, void 0, function* () {
     const { image } = req.body;
-    const s3 = new AWS.S3({
-        accessKeyId: process.env.AWS_ACCESS,
-        secretAccessKey: process.env.AWS_SECRET,
-    });
-    const filename = 'the-file-name';
-    const fileContent = fs.readFileSync(filename);
-    const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${filename}.jpg`,
-        Body: fileContent,
-    };
-    const res = s3.upload(params, (err, data) => {
-        console.log(data);
-        console.log(err);
-    });
-    return res;
+    // const s3 = new AWS.S3({
+    //   accessKeyId: process.env.AWS_ACCESS,
+    //   secretAccessKey: process.env.AWS_SECRET,
+    // });
+    // const filename = 'the-file-name';
+    // const fileContent = fs.readFileSync(filename);
+    // const params = {
+    //   Bucket: process.env.AWS_BUCKET_NAME,
+    //   Key: `${filename}.jpg`,
+    //   Body: fileContent,
+    // };
+    // const res = s3.upload(params, (err:any, data:any) => {
+    //   console.log(data);
+    //   console.log(err);
+    // });
+    return "ok";
 });
 //# sourceMappingURL=listingController.js.map
