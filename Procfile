@@ -1,1 +1,1 @@
-web: node server/dev-api.js
+web:node server/dev-api.js
