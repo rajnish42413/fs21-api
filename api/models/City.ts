@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import Media from './Media';
 
 class City extends Model {
   static tableName = 'cities';
