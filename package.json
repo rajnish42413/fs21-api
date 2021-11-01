@@ -1,4 +1,10 @@
 {
+    "name": "fs21",
+    "description": "a really cool app",
+    "version": "1.0.0",
+    "engines": {
+        "node": "12.11.1"
+    },
     "main": "server/dev-api.js",
     "dependencies": {
         "@googlemaps/google-maps-services-js": "^3.2.5",
