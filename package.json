@@ -43,7 +43,9 @@
         "migrate": "knex migrate:latest",
         "migrate:make": "knex migrate:make",
         "seed": "node seeder.js",
-        "start": "nodemon server/dev-api.js"
+        "start": "nodemon server/dev-api.js",
+        "postinstall": "npm run build",
+        "build": "tsc"
     },
     "devDependencies": {
         "@types/bcrypt": "^3.0.0",
