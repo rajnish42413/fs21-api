@@ -7,9 +7,10 @@ global.Promise = require("bluebird");
 const express = require("express"),
     app = express(),
     server = require("http").Server(app),
-    io = require("socket.io")(server);
+   cors = require('cors');
 
 const routes = require("../dist/api").default;
+app.use(cors());
 
 app.get("/",(req, res) => {
     res.send("Hello World!");
