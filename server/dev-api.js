@@ -10,7 +10,6 @@ const express = require("express"),
     io = require("socket.io")(server);
 
 const routes = require("../dist/api").default;
-
 app.use("/api", routes(app));
 
 server.listen(3001, "0.0.0.0", err => {
