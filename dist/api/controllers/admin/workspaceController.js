@@ -10,13 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const Workspace_1 = require("../../models/Workspace");
 exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
-    const { city_id, area_id, capacity, location, q } = req.query;
+    const { city_id, area_id, capacity, location, q, currentPage, pageSize } = req.query;
     const res = yield Workspace_1.default.query()
         .withGraphFetched('[image, city, area]')
         .modifyGraph('image', (builder) => {
         builder.where('entity', 'workspace');
     })
-        .orderBy('scores', 'DESC');
+        .orderBy('scores', 'DESC').page(currentPage, pageSize);
     return res;
 });
 exports.show = (req) => __awaiter(this, void 0, void 0, function* () {

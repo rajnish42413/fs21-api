@@ -5,7 +5,7 @@ import City from '../../models/City';
 
 
 export const index = async (req: Request) => {
-  const { city_id, area_id, capacity, location, q } = req.query;
+  const { city_id, area_id, capacity, location, q, currentPage, pageSize} = req.query;
   let listings = Listing.query();
   if (city_id) listings.where('city_id', city_id);
   if (area_id) listings.where('area_id', area_id);
@@ -48,7 +48,7 @@ export const index = async (req: Request) => {
     .modifyGraph('image', (builder) => {
       builder.where('entity', 'listing');
     })
-    .orderBy('scores', 'DESC');
+    .orderBy('scores', 'DESC').page(currentPage, pageSize);
   return res;
 };
 

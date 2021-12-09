@@ -3,17 +3,10 @@ import Listing from '../models/Listing';
 import Area from '../models/Area';
 import City from '../models/City';
 import * as AWS from 'aws-sdk';
-var fs = require('fs');
-
-
-AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS,
-    secretAccessKey: process.env.AWS_SECRET,
-    region:process.env.AWS_REGION
-});
 
 export const index = async (req: Request) => {
   const { city_id, area_id, capacity, location, q } = req.query;
+  const page = req.query.page || 1;
   let listings = Listing.query();
   if (city_id) listings.where('city_id', city_id);
   if (area_id) listings.where('area_id', area_id);
@@ -56,7 +49,8 @@ export const index = async (req: Request) => {
     .modifyGraph('image', (builder) => {
       builder.where('entity', 'listing');
     })
-    .orderBy('scores', 'DESC');
+    .orderBy('scores', 'DESC')
+    .page(0, 10);
   return res;
 };
 
@@ -88,7 +82,7 @@ export const UploadImage = async (req: Request) => {
     Key: `${filename}.jpg`,
     Body: fileContent,
   };
-  const res = s3.upload(params, (err:any, data:any) => {
+  const res = s3.upload(params, (err: any, data: any) => {
     console.log(data);
     console.log(err);
   });

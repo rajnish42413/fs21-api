@@ -12,7 +12,7 @@ const Listing_1 = require("../../models/Listing");
 const Area_1 = require("../../models/Area");
 const City_1 = require("../../models/City");
 exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
-    const { city_id, area_id, capacity, location, q } = req.query;
+    const { city_id, area_id, capacity, location, q, currentPage, pageSize } = req.query;
     let listings = Listing_1.default.query();
     if (city_id)
         listings.where('city_id', city_id);
@@ -55,7 +55,7 @@ exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
         .modifyGraph('image', (builder) => {
         builder.where('entity', 'listing');
     })
-        .orderBy('scores', 'DESC');
+        .orderBy('scores', 'DESC').page(currentPage, pageSize);
     return res;
 });
 exports.show = (req) => __awaiter(this, void 0, void 0, function* () {

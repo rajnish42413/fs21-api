@@ -1,6 +1,8 @@
 const { Model } = require('objection');
 const Knex = require('knex');
 import config from "./configs/database";
+import { attachPaginate } from 'knex-paginate';
+
 // Initialize knex.
 const knex = Knex({
     client: "mysql2",
@@ -13,5 +15,6 @@ const knex = Knex({
     }
 });
 
+attachPaginate();
 // Give the knex instance to objection.
 Model.knex(knex);

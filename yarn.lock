@@ -5130,6 +5130,11 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
+knex-paginate@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/knex-paginate/-/knex-paginate-3.0.0.tgz#ec322dd262d6e9ab7d453b5d2232ef9f9a468e03"
+  integrity sha512-jX6pacyvFtUon1QYp/AqK20zMjAPlrr/7zHrqP2HbRz/qdewDRX5huExXOp3+3+501VVYEwxlg84eB3TVzYTEw==
+
 knex@^0.95.12:
   version "0.95.12"
   resolved "https://registry.yarnpkg.com/knex/-/knex-0.95.12.tgz#b250f6690dc643c17e59b82e5c8780f0ed82060a"

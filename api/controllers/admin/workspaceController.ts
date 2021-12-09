@@ -1,17 +1,15 @@
 import { Request } from 'express';
 import Workspace from '../../models/Workspace';
-import Area from '../../models/Area';
-import City from '../../models/City';
 
 
 export const index = async (req: Request) => {
-  const { city_id, area_id, capacity, location, q } = req.query;
+  const { city_id, area_id, capacity, location, q ,currentPage, pageSize} = req.query;
   const res = await Workspace.query()
     .withGraphFetched('[image, city, area]')
     .modifyGraph('image', (builder) => {
       builder.where('entity', 'workspace');
     })
-    .orderBy('scores', 'DESC');
+    .orderBy('scores', 'DESC').page(currentPage, pageSize);
   return res;
 };
 
