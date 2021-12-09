@@ -11,22 +11,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Listing_1 = require("../models/Listing");
 const Area_1 = require("../models/Area");
 const City_1 = require("../models/City");
-const AWS = require("aws-sdk");
-var fs = require('fs');
-AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS,
-    secretAccessKey: process.env.AWS_SECRET,
-    region: process.env.AWS_REGION
-});
 exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
-    const { city_id, area_id, capacity, location, q } = req.query;
+    const { city_id, area_id, capacity, location, q, type_id, currentPage, pageSize } = req.query;
     let listings = Listing_1.default.query();
+    let page_size = pageSize || 10;
+    let current_page = currentPage || 0;
     if (city_id)
         listings.where('city_id', city_id);
     if (area_id)
         listings.where('area_id', area_id);
     if (capacity)
         listings.where('capacity', capacity);
+    if (type_id)
+        listings.where('type_id', type_id);
     if (q) {
         const item = q.split(',');
         if (item.length) {
@@ -62,7 +59,8 @@ exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
         .modifyGraph('image', (builder) => {
         builder.where('entity', 'listing');
     })
-        .orderBy('scores', 'DESC');
+        .orderBy('scores', 'DESC')
+        .page(current_page, page_size);
     return res;
 });
 exports.show = (req) => __awaiter(this, void 0, void 0, function* () {
@@ -75,25 +73,6 @@ exports.show = (req) => __awaiter(this, void 0, void 0, function* () {
     })
         .modifyGraph('openHours', (builder) => {
         builder.where('entity', 'listing');
-    });
-    return res;
-});
-exports.UploadImage = (req) => __awaiter(this, void 0, void 0, function* () {
-    const { image } = req.body;
-    const s3 = new AWS.S3({
-        accessKeyId: process.env.AWS_ACCESS,
-        secretAccessKey: process.env.AWS_SECRET,
-    });
-    const filename = 'the-file-name';
-    const fileContent = fs.readFileSync(filename);
-    const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${filename}.jpg`,
-        Body: fileContent,
-    };
-    const res = s3.upload(params, (err, data) => {
-        console.log(data);
-        console.log(err);
     });
     return res;
 });

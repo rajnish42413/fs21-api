@@ -2,15 +2,16 @@ import { Request } from 'express';
 import Listing from '../models/Listing';
 import Area from '../models/Area';
 import City from '../models/City';
-import * as AWS from 'aws-sdk';
 
 export const index = async (req: Request) => {
-  const { city_id, area_id, capacity, location, q } = req.query;
-  const page = req.query.page || 1;
+  const { city_id, area_id, capacity, location, q ,type_id, currentPage, pageSize} = req.query;
   let listings = Listing.query();
+  let page_size = pageSize || 10;
+  let current_page = currentPage || 0;
   if (city_id) listings.where('city_id', city_id);
   if (area_id) listings.where('area_id', area_id);
   if (capacity) listings.where('capacity', capacity);
+  if (type_id) listings.where('type_id', type_id);
   if (q) {
     const item = q.split(',');
     if (item.length) {
@@ -50,7 +51,7 @@ export const index = async (req: Request) => {
       builder.where('entity', 'listing');
     })
     .orderBy('scores', 'DESC')
-    .page(0, 10);
+    .page(current_page, page_size);
   return res;
 };
 
@@ -65,26 +66,5 @@ export const show = async (req: Request) => {
     .modifyGraph('openHours', (builder) => {
       builder.where('entity', 'listing');
     });
-  return res;
-};
-
-export const UploadImage = async (req: Request) => {
-  const { image } = req.body;
-  const s3 = new AWS.S3({
-    accessKeyId: process.env.AWS_ACCESS,
-    secretAccessKey: process.env.AWS_SECRET,
-  });
-  const filename = 'the-file-name';
-  const fileContent = fs.readFileSync(filename);
-
-  const params = {
-    Bucket: process.env.AWS_BUCKET_NAME,
-    Key: `${filename}.jpg`,
-    Body: fileContent,
-  };
-  const res = s3.upload(params, (err: any, data: any) => {
-    console.log(data);
-    console.log(err);
-  });
   return res;
 };

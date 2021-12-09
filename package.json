@@ -47,7 +47,8 @@
         "seed": "node seeder.js",
         "start": "nodemon server/dev-api.js",
         "postinstall": "npm run build",
-        "build": "tsc"
+        "build": "tsc --build",
+        "clean": "tsc --build --clean"
     },
     "devDependencies": {
         "@types/bcrypt": "^3.0.0",
