@@ -14,6 +14,8 @@ const City_1 = require("../../models/City");
 exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
     const { city_id, area_id, capacity, location, q, currentPage, pageSize } = req.query;
     let listings = Listing_1.default.query();
+    let page_size = pageSize || 10;
+    let current_page = currentPage || 0;
     if (city_id)
         listings.where('city_id', city_id);
     if (area_id)
@@ -55,7 +57,7 @@ exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
         .modifyGraph('image', (builder) => {
         builder.where('entity', 'listing');
     })
-        .orderBy('scores', 'DESC').page(currentPage, pageSize);
+        .orderBy('scores', 'DESC').page(current_page, page_size);
     return res;
 });
 exports.show = (req) => __awaiter(this, void 0, void 0, function* () {
@@ -74,7 +76,19 @@ exports.show = (req) => __awaiter(this, void 0, void 0, function* () {
 exports.update = (req) => __awaiter(this, void 0, void 0, function* () {
     const { listing } = req.params;
     const res = yield Listing_1.default.query().patchAndFetchById(listing, req.body);
-    return res;
+    return {
+        "status": true,
+        "message": "Successfully Updated!",
+        "data": res
+    };
+});
+exports.store = (req) => __awaiter(this, void 0, void 0, function* () {
+    const res = yield Listing_1.default.query().insert(req.body);
+    return {
+        "status": true,
+        "message": "Successfully Inserted!",
+        "data": res
+    };
 });
 exports.UploadImage = (req) => __awaiter(this, void 0, void 0, function* () {
     const { image } = req.body;

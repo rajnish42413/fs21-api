@@ -26,6 +26,14 @@ exports.cityUpdate = (req) => __awaiter(this, void 0, void 0, function* () {
     const res = yield City_1.default.query().patchAndFetchById(city, req.body);
     return res;
 });
+exports.storeCity = (req) => __awaiter(this, void 0, void 0, function* () {
+    const res = yield City_1.default.query().insert(req.body);
+    return res;
+});
+exports.storeArea = (req) => __awaiter(this, void 0, void 0, function* () {
+    const res = yield Area_1.default.query().insert(req.body);
+    return res;
+});
 exports.areas = (req) => __awaiter(this, void 0, void 0, function* () {
     const { city } = req.params;
     if (!city)

@@ -9,7 +9,7 @@ export const index = async (req: Request) => {
     .modifyGraph('image', (builder) => {
       builder.where('entity', 'workspace');
     })
-    .orderBy('scores', 'DESC').page(currentPage, pageSize);
+    .orderBy('id', 'DESC').page(currentPage, pageSize);
   return res;
 };
 

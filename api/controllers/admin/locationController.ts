@@ -20,6 +20,15 @@ export const cityUpdate = async (req: Request) => {
     return res;
 };
 
+export const storeCity = async (req: Request) => {
+    const res = await City.query().insert(req.body);
+    return res;
+};
+export const storeArea = async (req: Request) => {
+    const res = await Area.query().insert(req.body);
+    return res;
+};
+
 export const areas =  async (req: Request) => {
     const {city} = req.params;
     if(!city) throw new ResponseError("CityId is required", 422);

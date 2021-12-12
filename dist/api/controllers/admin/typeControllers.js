@@ -24,4 +24,16 @@ exports.update = (req) => __awaiter(this, void 0, void 0, function* () {
     const res = yield Type_1.default.query().patchAndFetchById(type, req.body);
     return res;
 });
+exports.store = (req) => __awaiter(this, void 0, void 0, function* () {
+    const res = yield Type_1.default.query().insert(req.body);
+    return res;
+});
+exports.remove = (req) => __awaiter(this, void 0, void 0, function* () {
+    const { type } = req.params;
+    yield Type_1.default.query().deleteById(type);
+    return {
+        "status": true,
+        "message": "Removed Successfully!"
+    };
+});
 //# sourceMappingURL=typeControllers.js.map

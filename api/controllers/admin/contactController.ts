@@ -12,3 +12,9 @@ export const show = async (req: Request) => {
     const res = Type.query().findById(listing)
     return res;
 };
+
+
+export const store = async (req: Request) => {
+    const res = await Type.query().insert(req.body);
+    return res;
+};

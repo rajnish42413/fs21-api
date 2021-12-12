@@ -16,7 +16,7 @@ exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
         .modifyGraph('image', (builder) => {
         builder.where('entity', 'workspace');
     })
-        .orderBy('scores', 'DESC').page(currentPage, pageSize);
+        .orderBy('id', 'DESC').page(currentPage, pageSize);
     return res;
 });
 exports.show = (req) => __awaiter(this, void 0, void 0, function* () {

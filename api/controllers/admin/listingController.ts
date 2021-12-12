@@ -3,10 +3,11 @@ import Listing from '../../models/Listing';
 import Area from '../../models/Area';
 import City from '../../models/City';
 
-
 export const index = async (req: Request) => {
   const { city_id, area_id, capacity, location, q, currentPage, pageSize} = req.query;
   let listings = Listing.query();
+  let page_size = pageSize || 10;
+  let current_page = currentPage || 0;
   if (city_id) listings.where('city_id', city_id);
   if (area_id) listings.where('area_id', area_id);
   if (capacity) listings.where('capacity', capacity);
@@ -48,7 +49,7 @@ export const index = async (req: Request) => {
     .modifyGraph('image', (builder) => {
       builder.where('entity', 'listing');
     })
-    .orderBy('scores', 'DESC').page(currentPage, pageSize);
+    .orderBy('scores', 'DESC').page(current_page, page_size);
   return res;
 };
 
@@ -69,7 +70,20 @@ export const show = async (req: Request) => {
 export const update = async (req: Request) => {
   const {listing} = req.params;
   const res = await Listing.query().patchAndFetchById(listing, req.body);
-  return res;
+  return {
+    "status" : true,
+    "message" : "Successfully Updated!",
+    "data" : res
+  };
+};
+
+export const store = async (req: Request) => {
+  const res = await Listing.query().insert(req.body);
+  return {
+    "status" : true,
+    "message" : "Successfully Inserted!",
+    "data" : res
+  };
 };
 
 export const UploadImage = async (req: Request) => {

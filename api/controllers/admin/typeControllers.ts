@@ -18,3 +18,17 @@ export const update = async (req: Request) => {
     const res = await Type.query().patchAndFetchById(type, req.body);
     return res;
 };
+
+export const store = async (req: Request) => {
+    const res = await Type.query().insert(req.body);
+    return res;
+};
+
+export const remove = async (req: Request) => {
+    const { type} = req.params;
+    await Type.query().deleteById(type);
+    return  {
+        "status" :true,
+        "message" : "Removed Successfully!"
+    }
+};

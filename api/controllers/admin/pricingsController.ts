@@ -22,9 +22,8 @@ export const create = async (req: Request) => {
   return Pricing.query().where("entity_id", listing).where("entity", "listing");
 };
 
-
 export const remove = async (req: Request) => {
     const { pricing, listing} = req.params;
     await Pricing.query().deleteById(pricing);
     return Pricing.query().where("entity_id", listing).where("entity", "listing");
-  };
+};

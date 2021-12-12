@@ -22,6 +22,7 @@ import * as AdminTypeController from "./controllers/admin/typeControllers";
 import * as AdminListingController from "./controllers/admin/listingController";
 import * as AdminPricingController from "./controllers/admin/pricingsController";
 import * as AdminWorkspaceController from "./controllers/admin/workspaceController";
+import * as AdminHomeController from "./controllers/admin/homeController";
 
 //import delete_item from "./controllers/removeController";
 import "./db";
@@ -47,15 +48,25 @@ app.use(authMiddleware);
 // app.use(authMiddleware);
 app.get("/admin/countries", AdminLocationController.countries);
 app.get("/admin/countries/:country/cities", AdminLocationController.cities);
+app.get("/admin/required-data", AdminHomeController.index);
+
 app.get("/admin/cities", AdminLocationController.cities);
+app.post("/admin/cities", AdminLocationController.storeCity);
 app.put("/admin/cities/:city", AdminLocationController.cityUpdate);
+
 app.get("/admin/types", AdminTypeController.index);
 app.put("/admin/types/:type", AdminTypeController.update);
+app.delete("/admin/types/:type", AdminTypeController.remove);
+app.post("/admin/types", AdminTypeController.store);
+
 app.get("/admin/cities/:city/areas", AdminLocationController.areas);
+app.post("/admin/cities/:city/areas", AdminLocationController.storeArea);
 
 app.get("/admin/listings", AdminListingController.index);
+app.post("/admin/listings", AdminListingController.store);
+app.post("/admin/listings/create", AdminListingController.store);
 app.get("/admin/listings/:listing", AdminListingController.show);
-app.put("/admin/listings/:listing/update", AdminListingController.update);
+app.post("/admin/listings/:listing/update", AdminListingController.update);
 app.post("/admin/listings/:listing/pricings", AdminPricingController.create);
 app.delete("/admin/listings/:listing/pricings/:pricing", AdminPricingController.remove);
 
