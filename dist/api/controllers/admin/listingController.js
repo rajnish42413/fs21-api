@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Listing_1 = require("../../models/Listing");
 const Area_1 = require("../../models/Area");
 const City_1 = require("../../models/City");
+const OpenHour_1 = require("../../models/OpenHour");
 exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
     const { city_id, area_id, capacity, location, q, currentPage, pageSize } = req.query;
     let listings = Listing_1.default.query();
@@ -87,6 +88,15 @@ exports.store = (req) => __awaiter(this, void 0, void 0, function* () {
     return {
         "status": true,
         "message": "Successfully Inserted!",
+        "data": res
+    };
+});
+exports.updateOpenHours = (req) => __awaiter(this, void 0, void 0, function* () {
+    const { timmings } = req.body;
+    const res = yield OpenHour_1.default.query().upsertGraphAndFetch(timmings);
+    return {
+        "status": true,
+        "message": "Saved Successfully!",
         "data": res
     };
 });

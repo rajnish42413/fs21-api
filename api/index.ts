@@ -36,6 +36,7 @@ app.get("/countries/:country/cities", locationController.cities);
 app.get("/cities", locationController.cities);
 app.get("/types", typeController.index);
 app.get("/cities/:city/areas", locationController.areas);
+app.get("/cities/:city/listings", listingController.showCityListings);
 app.get("/listings", listingController.index);
 app.get("/listings/:listing", listingController.show);
 
@@ -69,6 +70,7 @@ app.get("/admin/listings/:listing", AdminListingController.show);
 app.post("/admin/listings/:listing/update", AdminListingController.update);
 app.post("/admin/listings/:listing/pricings", AdminPricingController.create);
 app.delete("/admin/listings/:listing/pricings/:pricing", AdminPricingController.remove);
+app.post("/admin/listings/:listing/open-hours", AdminListingController.updateOpenHours);
 
 app.get("/admin/workspaces", AdminWorkspaceController.index);
 app.get("/admin/workspaces/:workspace", AdminWorkspaceController.show);

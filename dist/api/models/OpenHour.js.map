@@ -1,1 +1,1 @@
-{"version":3,"file":"OpenHour.js","sourceRoot":"","sources":["../../../api/models/OpenHour.ts"],"names":[],"mappings":";;AAAA,yCAAkC;AAElC,MAAM,QAAS,SAAQ,iBAAK;;AACnB,kBAAS,GAAG,YAAY,CAAC;AAGlC,kBAAe,QAAQ,CAAC"}
+{"version":3,"file":"OpenHour.js","sourceRoot":"","sources":["../../../api/models/OpenHour.ts"],"names":[],"mappings":";;AAAA,yCAAkC;AAElC,MAAM,QAAS,SAAQ,iBAAK;;AACnB,kBAAS,GAAG,YAAY,CAAC;AASlC,kBAAe,QAAQ,CAAC"}

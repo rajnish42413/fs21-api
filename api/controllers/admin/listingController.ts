@@ -2,6 +2,7 @@ import { Request } from 'express';
 import Listing from '../../models/Listing';
 import Area from '../../models/Area';
 import City from '../../models/City';
+import OpenHour from '../../models/OpenHour';
 
 export const index = async (req: Request) => {
   const { city_id, area_id, capacity, location, q, currentPage, pageSize} = req.query;
@@ -85,6 +86,16 @@ export const store = async (req: Request) => {
     "data" : res
   };
 };
+
+export const updateOpenHours = async (req: Request) => {
+  const {timmings} = req.body;
+  const res = await OpenHour.query().upsertGraphAndFetch(timmings);
+  return {
+    "status" : true,
+    "message" : "Saved Successfully!",
+    "data" : res
+  };
+}
 
 export const UploadImage = async (req: Request) => {
   const { image } = req.body;
