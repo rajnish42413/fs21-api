@@ -4,5 +4,3 @@ node_modules/
 migration/
 coverage/*
 .env
-dist/
-dist/api
