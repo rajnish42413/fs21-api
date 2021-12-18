@@ -37,6 +37,14 @@ exports.update = (req) => __awaiter(this, void 0, void 0, function* () {
     const res = yield Workspace_1.default.query().patchAndFetchById(workspace, req.body);
     return res;
 });
+exports.store = (req) => __awaiter(this, void 0, void 0, function* () {
+    const res = yield Workspace_1.default.query().insert(req.body);
+    return {
+        "status": true,
+        "message": "Successfully Inserted!",
+        "data": res
+    };
+});
 exports.UploadImage = (req) => __awaiter(this, void 0, void 0, function* () {
     const { image } = req.body;
     // const s3 = new AWS.S3({

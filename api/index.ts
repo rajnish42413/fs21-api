@@ -73,7 +73,10 @@ app.delete("/admin/listings/:listing/pricings/:pricing", AdminPricingController.
 app.post("/admin/listings/:listing/open-hours", AdminListingController.updateOpenHours);
 
 app.get("/admin/workspaces", AdminWorkspaceController.index);
+app.post("/admin/workspaces", AdminWorkspaceController.store);
+app.post("/admin/workspaces/:workspace/update", AdminWorkspaceController.update);
 app.get("/admin/workspaces/:workspace", AdminWorkspaceController.show);
+
 
 export default (expApp: Express) => {
     return app;

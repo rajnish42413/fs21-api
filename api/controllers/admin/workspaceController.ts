@@ -33,6 +33,15 @@ export const update = async (req: Request) => {
   return res;
 };
 
+export const store = async (req: Request) => {
+  const res = await Workspace.query().insert(req.body);
+  return {
+    "status" : true,
+    "message" : "Successfully Inserted!",
+    "data" : res
+  };
+};
+
 export const UploadImage = async (req: Request) => {
   const { image } = req.body;
   // const s3 = new AWS.S3({
