@@ -3,6 +3,7 @@ import Listing from '../models/Listing';
 import Area from '../models/Area';
 import City from '../models/City';
 import Type from '../models/Type';
+import { ResponseError, ValidationError } from '../errors';
 
 export const index = async (req: Request) => {
   const {
@@ -90,8 +91,13 @@ export const index = async (req: Request) => {
 
 export const show = async (req: Request) => {
   const { listing } = req.params;
-  const res = Listing.query()
-    .findById(listing)
+  let res = null;
+  if (isNaN(listing)) {
+    res = Listing.query().where('slug', listing);
+  } else {
+    res = Listing.query().where('id', listing);
+  }
+  res
     .withGraphFetched('[image, city, area, pricings, media, openHours]')
     .modifyGraph('media', (builder) => {
       builder.where('entity', 'listing');
@@ -99,6 +105,10 @@ export const show = async (req: Request) => {
     .modifyGraph('openHours', (builder) => {
       builder.where('entity', 'listing');
     });
+  res = await res;
+  if (!res) {
+    throw new ValidationError('Listing not found');
+  }
   return res;
 };
 
@@ -108,13 +118,8 @@ export const showCityListings = async (req: Request) => {
   const cityDetail = await City.query()
     .select('id', 'slug', 'name')
     .findById(city);
-  const {
-    area_id,
-    capacity,
-    type_id,
-    currentPage,
-    pageSize,
-  } = req.query;
+  const { area_id, capacity, type_id, currentPage, pageSize } =
+    req.query;
   let listings = Listing.query().where('city_id', city);
   let page_size = pageSize || 10;
   let current_page = currentPage || 0;
@@ -139,7 +144,7 @@ export const showCityListings = async (req: Request) => {
     })
     .orderBy('scores', 'DESC')
     .page(current_page, page_size);
-  const data = { "listings": res, area, "city":cityDetail, type };
+  const data = { listings: res, area, city: cityDetail, type };
   return {
     status: true,
     data: data,

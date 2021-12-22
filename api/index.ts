@@ -14,6 +14,7 @@ import loginController from "./controllers/auth/loginController";
 import registerController from "./controllers/auth/registerController";
 import * as locationController from "./controllers/locationController";
 import * as listingController from "./controllers/listingController";
+import * as workspaceController from "./controllers/workspaceController";
 import * as typeController from "./controllers/typeControllers";
 
 
@@ -39,7 +40,8 @@ app.get("/cities/:city/areas", locationController.areas);
 app.get("/cities/:city/listings", listingController.showCityListings);
 app.get("/listings", listingController.index);
 app.get("/listings/:listing", listingController.show);
-
+app.get("/workspaces", workspaceController.index);
+app.get("/workspaces/:workspace", workspaceController.show);
 
 // user routes
 app.use(authMiddleware);

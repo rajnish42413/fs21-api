@@ -12,6 +12,7 @@ const Listing_1 = require("../models/Listing");
 const Area_1 = require("../models/Area");
 const City_1 = require("../models/City");
 const Type_1 = require("../models/Type");
+const errors_1 = require("../errors");
 exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
     const { city_id, area_id, capacity, location, q, type_id, currentPage, pageSize, } = req.query;
     let listings = Listing_1.default.query();
@@ -83,8 +84,14 @@ exports.index = (req) => __awaiter(this, void 0, void 0, function* () {
 });
 exports.show = (req) => __awaiter(this, void 0, void 0, function* () {
     const { listing } = req.params;
-    const res = Listing_1.default.query()
-        .findById(listing)
+    let res = null;
+    if (isNaN(listing)) {
+        res = Listing_1.default.query().where('slug', listing);
+    }
+    else {
+        res = Listing_1.default.query().where('id', listing);
+    }
+    res
         .withGraphFetched('[image, city, area, pricings, media, openHours]')
         .modifyGraph('media', (builder) => {
         builder.where('entity', 'listing');
@@ -92,6 +99,10 @@ exports.show = (req) => __awaiter(this, void 0, void 0, function* () {
         .modifyGraph('openHours', (builder) => {
         builder.where('entity', 'listing');
     });
+    res = yield res;
+    if (!res) {
+        throw new errors_1.ValidationError('Listing not found');
+    }
     return res;
 });
 exports.showCityListings = (req) => __awaiter(this, void 0, void 0, function* () {
@@ -101,7 +112,7 @@ exports.showCityListings = (req) => __awaiter(this, void 0, void 0, function* ()
     const cityDetail = yield City_1.default.query()
         .select('id', 'slug', 'name')
         .findById(city);
-    const { area_id, capacity, type_id, currentPage, pageSize, } = req.query;
+    const { area_id, capacity, type_id, currentPage, pageSize } = req.query;
     let listings = Listing_1.default.query().where('city_id', city);
     let page_size = pageSize || 10;
     let current_page = currentPage || 0;
@@ -127,7 +138,7 @@ exports.showCityListings = (req) => __awaiter(this, void 0, void 0, function* ()
     })
         .orderBy('scores', 'DESC')
         .page(current_page, page_size);
-    const data = { "listings": res, area, "city": cityDetail, type };
+    const data = { listings: res, area, city: cityDetail, type };
     return {
         status: true,
         data: data,

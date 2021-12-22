@@ -13,6 +13,7 @@ const loginController_1 = require("./controllers/auth/loginController");
 const registerController_1 = require("./controllers/auth/registerController");
 const locationController = require("./controllers/locationController");
 const listingController = require("./controllers/listingController");
+const workspaceController = require("./controllers/workspaceController");
 const typeController = require("./controllers/typeControllers");
 const AdminLocationController = require("./controllers/admin/locationController");
 const AdminTypeController = require("./controllers/admin/typeControllers");
@@ -33,6 +34,8 @@ app.get("/cities/:city/areas", locationController.areas);
 app.get("/cities/:city/listings", listingController.showCityListings);
 app.get("/listings", listingController.index);
 app.get("/listings/:listing", listingController.show);
+app.get("/workspaces", workspaceController.index);
+app.get("/workspaces/:workspace", workspaceController.show);
 // user routes
 app.use(auth_1.default);
 // admin routes

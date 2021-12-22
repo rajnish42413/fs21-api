@@ -12,7 +12,13 @@ export const index = async (req: Request) => {
 };
 
 export const show = async (req: Request) => {
-    const {listing} = req.params;
-    const res = Workspace.query().findById(listing).eager('image')
+    const {workspace} = req.params;
+    let res = null;
+    if (isNaN(workspace)) {
+        res = Workspace.query().where('slug', workspace);
+      } else {
+        res = Workspace.query().where('id', workspace);
+    }
+    res = await res.withGraphFetched('[image, city, area]')
     return res;
 };
